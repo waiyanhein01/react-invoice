@@ -1,17 +1,53 @@
 import { Button, Label, Select, TextInput } from "flowbite-react";
-import React from "react";
+import React, { useRef } from "react";
 
-const CheckOutForm = ({products}) => {
+const CheckOutForm = ({ products, addItem }) => {
+  const selectRef = useRef();
+  const quantityRef = useRef();
+  const formRef = useRef();
+
+  const formHandler = (e) => {
+    e.preventDefault();
+
+    const id = Date.now();
+
+    const currentProduct = products.find(product => product.id === parseInt(selectRef.current.value))
+
+    const quantity = parseInt(quantityRef.current.value);
+
+    const cost = quantity * parseFloat(currentProduct.price).toFixed(2);
+
+    const newItem = {
+      id,
+      product : currentProduct,
+      quantity,
+      cost
+    }
+
+    addItem(newItem)
+    formRef.current.reset();
+
+
+    // console.log(currentProduct)
+
+    // console.log(selectRef.current.value);
+    // console.log(quantityRef.current.value);
+  };
+
   return (
     <>
-      <form className=" w-full block mb-5">
+      <form ref={formRef} onSubmit={formHandler} className=" w-full block mb-5">
         <div className=" grid grid-cols-5 gap-3">
           <div className=" col-span-2">
             <div className="mb-2 block">
               <Label htmlFor="countries" value="Select Fruit" />
             </div>
-            <Select id="countries" required>
-               {products.map(({id, title}) => <option value={id} key={id}>{title}</option>)}
+            <Select ref={selectRef} id="countries" required>
+              {products.map(({ id, title }) => (
+                <option value={id} key={id}>
+                  {title}
+                </option>
+              ))}
             </Select>
           </div>
 
@@ -19,11 +55,16 @@ const CheckOutForm = ({products}) => {
             <div className="mb-2 block">
               <Label htmlFor="base" value="Quantity" />
             </div>
-            <TextInput id="base" type="number" sizing="md" />
+            <TextInput ref={quantityRef} id="base" type="number" sizing="md" required/>
           </div>
 
           <div className=" col-span-1 ">
-            <Button className="w-full h-full flex justify-center items-center">Buy</Button>
+            <Button
+              type="submit"
+              className="w-full h-full flex justify-center items-center"
+            >
+              Buy
+            </Button>
           </div>
         </div>
       </form>

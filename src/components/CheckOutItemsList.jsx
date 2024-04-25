@@ -3,45 +3,43 @@ import { Button, Table } from "flowbite-react";
 import { HiMiniPlus } from "react-icons/hi2";
 import { HiMiniMinus } from "react-icons/hi2";
 import { HiTrash } from "react-icons/hi2";
-const CheckOutItemsList = () => {
+import List from "./List";
+const CheckOutItemsList = ({ items, removeItem, updateQuantity }) => {
+  const total = items.reduce((pv, cv) => pv + parseFloat(cv.cost), 0);
   return (
     <div className="overflow-x-auto">
       <Table striped>
         <Table.Head>
           <Table.HeadCell>Product name</Table.HeadCell>
-          <Table.HeadCell className=" text-end">Quantity</Table.HeadCell>
           <Table.HeadCell className=" text-end">Price</Table.HeadCell>
+          <Table.HeadCell className=" text-end">Quantity</Table.HeadCell>
           <Table.HeadCell className=" text-end">Cost</Table.HeadCell>
           <Table.HeadCell>
             <span className="sr-only">Edit</span>
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-              {'Apple MacBook Pro 17"'}
-            </Table.Cell>
-            <Table.Cell className=" text-end">50</Table.Cell>
-            <Table.Cell className=" text-end">
-              <div className=" flex justify-end gap-2 items-center">
-                <Button size="xs" color="gray">
-                  {/* <HiMiniMinus /> */} -
-                </Button>
-                <span>3</span>
-                <Button size="xs" color="gray">
-                  {/* <HiMiniPlus /> */} +
-                </Button>
-              </div>
-            </Table.Cell>
-            <Table.Cell className=" text-end">$150</Table.Cell>
-            <Table.Cell>
-              <a
-                href="#"
-                className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+          {items.map((item) => (
+            <List updateQuantity={updateQuantity} removeItem={removeItem} key={item.id} item={item} />
+          ))}
+
+          {items.length === 0 && (
+            <Table.Row>
+              <Table.Cell
+                colSpan={5}
+                className="whitespace-nowrap text-center font-medium text-gray-900 dark:text-white"
               >
-                {/* <HiTrash className=" text-red-600" /> */} Remove
-              </a>
+                There is no record.
+              </Table.Cell>
+            </Table.Row>
+          )}
+
+          <Table.Row>
+            <Table.Cell className=" text-center" colSpan={3}>
+              Total
             </Table.Cell>
+            <Table.Cell className=" text-end">${total.toFixed(2)}</Table.Cell>
+            <Table.Cell></Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>

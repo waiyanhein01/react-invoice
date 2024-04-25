@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import CheckOutForm from "./components/CheckOutForm";
 import CheckOutItemsList from "./components/CheckOutItemsList";
 import Drawer from "./components/Drawer";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   const [products, setProduct] = useState([
@@ -20,32 +21,68 @@ const App = () => {
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+  const [items, setItems] = useState([]);
+
   const drawerHandler = () => {
     setIsDrawerOpen(!isDrawerOpen);
-  }
+  };
+
+  const addItem = (newProduct) => {
+    setItems([...items, newProduct]);
+  };
+
+  const removeItem = (id) => {
+    setItems(items.filter((item) => item.id !== id));
+  };
+
+  const updateQuantity = (id, amount) => {
+    setItems(
+      items.map((item) => {
+        if (item.id === id) {
+          const quantity = item.quantity + amount;
+          const cost = (item.product.price * quantity).toFixed(2);
+          return { ...item, quantity, cost };
+        }
+        return item;
+      })
+    );
+  };
   return (
     <main className=" flex flex-col min-h-screen">
       <Header>
         <Container>
-          <MainHeading>Invoice App</MainHeading>
-          <SubHeading>Online Shop</SubHeading>
+          <MainHeading className="">Invoice App</MainHeading>
+          <SubHeading className="">Online Shop</SubHeading>
         </Container>
       </Header>
       <Container>
-        <CheckOutForm products={products} />
-        <CheckOutItemsList/>
+        <CheckOutForm addItem={addItem} products={products} />
+        <CheckOutItemsList
+          updateQuantity={updateQuantity}
+          removeItem={removeItem}
+          items={items}
+        />
       </Container>
       <Footer>
         <Container>
           <div className=" flex gap-3 justify-end">
-            <Button onClick={drawerHandler} color="light" className=" outline-none">
+            <Button
+              onClick={drawerHandler}
+              color="light"
+              className=" outline-none"
+            >
               Manage Inventory
             </Button>
             <Button>Print</Button>
           </div>
         </Container>
       </Footer>
-      <Drawer products={products}  isDrawerOpen={isDrawerOpen} drawerHandler={drawerHandler}/>
+      <Drawer
+        products={products}
+        isDrawerOpen={isDrawerOpen}
+        drawerHandler={drawerHandler}
+      />
+      <Toaster position="bottom-left"reverseOrder={false} />
     </main>
   );
 };

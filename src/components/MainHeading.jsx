@@ -1,8 +1,8 @@
 import React from 'react'
 
-const MainHeading = ({children}) => {
+const MainHeading = ({children, className}) => {
   return (
-    <h1 className=' text-3xl font-bold font-serif'>
+    <h1 className={`text-3xl font-bold font-serif ${className}`}>
       {children}
     </h1>
   )
