@@ -47,6 +47,10 @@ const App = () => {
       })
     );
   };
+
+  const addProduct = (newProduct) => {
+    setProduct([...products, newProduct]);
+  };
   return (
     <main className=" flex flex-col min-h-screen">
       <Header>
@@ -78,11 +82,12 @@ const App = () => {
         </Container>
       </Footer>
       <Drawer
+        addProduct={addProduct}
         products={products}
         isDrawerOpen={isDrawerOpen}
         drawerHandler={drawerHandler}
       />
-      <Toaster position="bottom-left"reverseOrder={false} />
+      <Toaster position="bottom-left" reverseOrder={false} />
     </main>
   );
 };

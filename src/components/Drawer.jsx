@@ -4,7 +4,7 @@ import SubHeading from "./SubHeading";
 import { Button } from "flowbite-react";
 import CreateAddProductForm from "./CreateAddProductForm";
 
-const Drawer = ({ isDrawerOpen, drawerHandler, products }) => {
+const Drawer = ({ isDrawerOpen, drawerHandler, products, addProduct }) => {
   return (
     <div
       className={`bg-slate-50 shadow w-[400px] h-screen fixed right-0 z-30 duration-150 overflow-y-scroll ${
@@ -47,7 +47,7 @@ const Drawer = ({ isDrawerOpen, drawerHandler, products }) => {
           </div>
         ))}
 
-        <CreateAddProductForm/>
+        <CreateAddProductForm addProduct={addProduct}/>
       </div>
     </div>
   );
