@@ -1,12 +1,13 @@
 import { Button, Table } from "flowbite-react";
-import React from "react";
+import React, { useContext } from "react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import { ItemContext } from "../context/ItemProvider";
 
-const List = ({ item, removeItem, updateQuantity }) => {
+const List = ({item}) => {
+  const { removeItem, updateQuantity } = useContext(ItemContext)
+
   const deleteBtnHandler = () => {
-    // if (confirm("Are u sure to delete?")) {
-    // }
     Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",

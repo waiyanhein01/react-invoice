@@ -1,7 +1,12 @@
 import { Button, Label, TextInput } from "flowbite-react";
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
+import { ProductContext } from "../context/ProductProvider";
 
-const CreateAddProductForm = ({ addProduct }) => {
+const CreateAddProductForm = () => {
+
+  const { addProduct } = useContext(ProductContext)
+
+  
   const formRef = useRef();
   const productRef = useRef();
   const priceRef = useRef();

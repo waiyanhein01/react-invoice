@@ -1,11 +1,17 @@
-import React from 'react'
+import React from "react";
+import Container from "./Container";
+import MainHeading from "./MainHeading";
+import SubHeading from "./SubHeading";
 
-const Header = ({children}) => {
+const Header = () => {
   return (
     <header>
-      {children}
+      <Container>
+        <MainHeading className="">Invoice App</MainHeading>
+        <SubHeading className="">Online Shop</SubHeading>
+      </Container>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

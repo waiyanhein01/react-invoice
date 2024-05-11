@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import MainHeading from "./MainHeading";
 import SubHeading from "./SubHeading";
 import { Button } from "flowbite-react";
 import CreateAddProductForm from "./CreateAddProductForm";
+import { GeneralContext } from "../context/GeneralProvider";
+import { ProductContext } from "../context/ProductProvider";
 
-const Drawer = ({ isDrawerOpen, drawerHandler, products, addProduct }) => {
+const Drawer = () => {
+  const { isDrawerOpen, drawerHandler} = useContext(GeneralContext);
+  const { products, addProduct } = useContext(ProductContext)
   return (
     <div
       className={`bg-slate-50 shadow w-[400px] h-screen fixed right-0 z-30 duration-150 overflow-y-scroll ${
