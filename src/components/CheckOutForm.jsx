@@ -19,7 +19,7 @@ const CheckOutForm = () => {
       (product) => product.id === parseInt(selectRef.current.value)
     );
 
-    const quantity = parseInt(quantityRef.current.value);
+    const quantity = parseInt(quantityRef.current.valueAsNumber);
 
     const cost = (quantity * parseFloat(currentProduct.price)).toFixed(2);
 
@@ -41,7 +41,7 @@ const CheckOutForm = () => {
 
   return (
     <>
-      <form ref={formRef} onSubmit={formHandler} className=" w-full block mb-5">
+      <form ref={formRef} onSubmit={formHandler} className=" w-full block mb-5 print:hidden">
         <div className=" grid grid-cols-5 gap-3">
           <div className=" col-span-2">
             <div className="mb-2 block">

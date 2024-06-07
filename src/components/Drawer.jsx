@@ -7,8 +7,8 @@ import { GeneralContext } from "../context/GeneralProvider";
 import { ProductContext } from "../context/ProductProvider";
 
 const Drawer = () => {
-  const { isDrawerOpen, drawerHandler} = useContext(GeneralContext);
-  const { products, addProduct } = useContext(ProductContext)
+  const { isDrawerOpen, drawerHandler } = useContext(GeneralContext);
+  const { products, addProduct } = useContext(ProductContext);
   return (
     <div
       className={`bg-slate-50 shadow w-[400px] h-screen fixed right-0 z-30 duration-150 overflow-y-scroll ${
@@ -45,13 +45,20 @@ const Drawer = () => {
         </div>
 
         {products.map(({ id, title, price, stock }) => (
-          <div key={id} className=" flex justify-between items-center rounded-md p-3 mb-3 bg-white">
-            <span>{title} ({stock})</span>
-            <span className="">$<span className=" font-mono">{price}</span></span>
+          <div
+            key={id}
+            className=" flex justify-between items-center rounded-md p-3 mb-3 bg-white"
+          >
+            <span>
+              {title} ({stock})
+            </span>
+            <span className="">
+              $<span className=" font-mono">{price}</span>
+            </span>
           </div>
         ))}
 
-        <CreateAddProductForm addProduct={addProduct}/>
+        <CreateAddProductForm addProduct={addProduct} />
       </div>
     </div>
   );

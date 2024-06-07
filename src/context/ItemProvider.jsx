@@ -5,8 +5,13 @@ export const ItemContext = createContext();
 const ItemProvider = ({ children }) => {
   const [items, setItems] = useState([]);
 
-  const addItem = (newProduct) => {
-    setItems([...items, newProduct]);
+  const addItem = (newItem) => {
+    const isExited = items.find((item) => item.product === newItem.product);
+    if (isExited) {
+      updateQuantity(isExited.id, newItem.quantity);
+    } else {
+      setItems([...items, newItem]);
+    }
   };
 
   const removeItem = (id) => {
@@ -26,7 +31,13 @@ const ItemProvider = ({ children }) => {
     );
   };
 
-  return <ItemContext.Provider value={{items,addItem,removeItem,updateQuantity}}>{children}</ItemContext.Provider>;
+  return (
+    <ItemContext.Provider
+      value={{ items, addItem, removeItem, updateQuantity }}
+    >
+      {children}
+    </ItemContext.Provider>
+  );
 };
 
 export default ItemProvider;

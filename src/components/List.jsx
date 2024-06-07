@@ -4,24 +4,24 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { ItemContext } from "../context/ItemProvider";
 
-const List = ({item}) => {
-  const { removeItem, updateQuantity } = useContext(ItemContext)
+const List = ({ item }) => {
+  const { removeItem, updateQuantity } = useContext(ItemContext);
 
   const deleteBtnHandler = () => {
     Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then((result) => {
-        if (result.isConfirmed) {
-      removeItem(item.id);
-         toast.success("Delete Successfully")
-        }
-      });
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        removeItem(item.id);
+        toast.success("Delete Successfully");
+      }
+    });
   };
 
   const addQuantity = () => {
@@ -31,11 +31,10 @@ const List = ({item}) => {
   const subQuantity = () => {
     if (item.quantity > 1) {
       updateQuantity(item.id, -1);
-      
-    }else {
-        toast.error("You can't be sub", {
-            duration: 2000
-          })
+    } else {
+      toast.error("You can't be sub", {
+        duration: 2000,
+      });
     }
   };
   return (
@@ -46,11 +45,11 @@ const List = ({item}) => {
       <Table.Cell className=" text-end">{item.product.price}</Table.Cell>
       <Table.Cell className=" text-end">
         <div className=" flex justify-end gap-2 items-center">
-          <Button onClick={subQuantity} size="xs" color="gray">
+          <Button className="print:hidden" onClick={subQuantity} size="xs" color="gray">
             {/* <HiMiniMinus /> */} -
           </Button>
           <span>{item.quantity}</span>
-          <Button onClick={addQuantity} size="xs" color="gray">
+          <Button className="print:hidden" onClick={addQuantity} size="xs" color="gray">
             {/* <HiMiniPlus /> */} +
           </Button>
         </div>
@@ -60,7 +59,7 @@ const List = ({item}) => {
         <Button
           onClick={deleteBtnHandler}
           color="none"
-          className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+          className="font-medium text-cyan-600 hover:underline dark:text-cyan-500 print:hidden"
         >
           {/* <HiTrash className=" text-red-600" /> */}
           <svg

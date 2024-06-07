@@ -3,10 +3,8 @@ import React, { useContext, useRef } from "react";
 import { ProductContext } from "../context/ProductProvider";
 
 const CreateAddProductForm = () => {
+  const { addProduct } = useContext(ProductContext);
 
-  const { addProduct } = useContext(ProductContext)
-
-  
   const formRef = useRef();
   const productRef = useRef();
   const priceRef = useRef();

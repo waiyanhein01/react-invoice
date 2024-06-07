@@ -1,12 +1,9 @@
 import React, { useContext } from "react";
-import { Button, Table } from "flowbite-react";
-import { HiMiniPlus } from "react-icons/hi2";
-import { HiMiniMinus } from "react-icons/hi2";
-import { HiTrash } from "react-icons/hi2";
+import { Table } from "flowbite-react";
 import List from "./List";
 import { ItemContext } from "../context/ItemProvider";
 const CheckOutItemsList = () => {
-  const { items } = useContext(ItemContext)
+  const { items } = useContext(ItemContext);
   const total = items.reduce((pv, cv) => pv + parseFloat(cv.cost), 0);
   return (
     <div className="overflow-x-auto">
@@ -36,13 +33,15 @@ const CheckOutItemsList = () => {
             </Table.Row>
           )}
 
-          <Table.Row>
-            <Table.Cell className=" text-center" colSpan={3}>
-              Total
-            </Table.Cell>
-            <Table.Cell className=" text-end">${total.toFixed(2)}</Table.Cell>
-            <Table.Cell></Table.Cell>
-          </Table.Row>
+          {items.length > 0 && (
+            <Table.Row>
+              <Table.Cell className=" text-center" colSpan={3}>
+                Total
+              </Table.Cell>
+              <Table.Cell className=" text-end">${total.toFixed(2)}</Table.Cell>
+              <Table.Cell></Table.Cell>
+            </Table.Row>
+          )}
         </Table.Body>
       </Table>
     </div>
